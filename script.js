@@ -112,3 +112,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   carregarMarcas();
 });
+document.getElementById('prosseguir').addEventListener('click', () => {
+  const marca = document.getElementById('marca').value;
+  const modelo = document.getElementById('modelo').value;
+  const ano = document.getElementById('ano').value;
+
+  if (marca && modelo && ano) {
+    localStorage.setItem('marca', marca);
+    localStorage.setItem('modelo', modelo);
+    localStorage.setItem('ano', ano);
+    window.location.href = 'checklist.html';
+  } else {
+    alert('Por favor, selecione marca, modelo e ano.');
+  }
+});
