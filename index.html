@@ -1,40 +1,91 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checklist Compra de Carro</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container">
-    <h1>Checklist para Compra de Carro</h1>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checklist de Avaliação</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-zinc-900 text-white min-h-screen p-4">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-3xl font-bold text-center text-red-600 mb-8">
+        Checklist de Avaliação do Veículo
+      </h1>
 
-    <form id="carForm">
-      <label>Marca:</label>
-      <input type="text" id="marca" required>
-      
-      <label>Modelo:</label>
-      <input type="text" id="modelo" required>
-      
-      <label>Ano:</label>
-      <input type="number" id="ano" required>
+      <form id="checklist-form" class="space-y-6">
+        <!-- Seção: Pneus e Rodas -->
+        <div>
+          <h2 class="text-xl font-semibold border-l-4 border-red-600 pl-4 mb-4">
+            Pneus e Rodas
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block mb-1">Pneus</label>
+              <select
+                class="w-full p-2 rounded bg-zinc-800 border border-zinc-700 checklist-item"
+                data-regular="0.03"
+                data-ruim="0.06"
+              >
+                <option value="bom">Bom</option>
+                <option value="regular">Regular</option>
+                <option value="ruim">Ruim</option>
+              </select>
+            </div>
+            <div>
+              <label class="block mb-1">Rodas</label>
+              <select
+                class="w-full p-2 rounded bg-zinc-800 border border-zinc-700 checklist-item"
+                data-regular="0.03"
+                data-ruim="0.06"
+              >
+                <option value="bom">Bom</option>
+                <option value="regular">Regular</option>
+                <option value="ruim">Ruim</option>
+              </select>
+            </div>
+          </div>
+        </div>
 
-      <h2>Avarias</h2>
-      <div class="checklist">
-        <label><input type="checkbox" value="2"> Pintura riscada (-2%)</label>
-        <label><input type="checkbox" value="5"> Vazamento no motor (-5%)</label>
-        <label><input type="checkbox" value="3"> Pneus carecas (-3%)</label>
-        <label><input type="checkbox" value="1"> Interior desgastado (-1%)</label>
-        <label><input type="checkbox" value="2"> Vidros trincados (-2%)</label>
-      </div>
+        <!-- Botão de Cálculo -->
+        <div class="text-center">
+          <button
+            type="button"
+            onclick="calcularValor()"
+            class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded shadow"
+          >
+            Calcular Valor Estimado
+          </button>
+        </div>
 
-      <button type="submit">Calcular Valor</button>
-    </form>
+        <!-- Resultado -->
+        <div
+          id="resultado"
+          class="text-center text-2xl font-semibold text-green-400 mt-6"
+        ></div>
+      </form>
+    </div>
 
-    <div id="resultado"></div>
-  </div>
+    <script>
+      let valorBase = 100000;
 
-  <script src="script.js"></script>
-</body>
+      function calcularValor() {
+        let valorFinal = valorBase;
+
+        document.querySelectorAll('.checklist-item').forEach((item) => {
+          const valor = item.value;
+          const regular = parseFloat(item.getAttribute('data-regular'));
+          const ruim = parseFloat(item.getAttribute('data-ruim'));
+
+          if (valor === 'regular') {
+            valorFinal -= valorBase * regular;
+          } else if (valor === 'ruim') {
+            valorFinal -= valorBase * ruim;
+          }
+        });
+
+        document.getElementById('resultado').innerText =
+          'Valor Estimado: R$ ' + valorFinal.toFixed(2);
+      }
+    </script>
+  </body>
 </html>
