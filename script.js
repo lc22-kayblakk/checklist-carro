@@ -1,128 +1,118 @@
 document.addEventListener("DOMContentLoaded", () => {
   const baseUrl = "https://parallelum.com.br/fipe/api/v1/carros";
-  const marcaSelect = document.getElementById("marca");
-  const modeloSelect = document.getElementById("modelo");
-  const anoSelect = document.getElementById("ano");
-  const resultadoDiv = document.getElementById("resultado");
-  const valorFipeDiv = document.getElementById("valor-fipe");
+  const btnMarca = document.getElementById("btn-marca");
+  const btnModelo = document.getElementById("btn-modelo");
+  const btnAno = document.getElementById("btn-ano");
+  const dropdownMarca = document.getElementById("dropdown-marca");
+  const dropdownModelo = document.getElementById("dropdown-modelo");
+  const dropdownAno = document.getElementById("dropdown-ano");
+  const btnProsseguir = document.getElementById("btn-prosseguir");
 
-  let valorFipeAtual = 0;
+  let marcaSelecionada = null;
+  let modeloSelecionado = null;
+  let anoSelecionado = null;
 
-  // Carregar marcas
+  // Helper para criar opções e adicionar eventos
+  function criarOpcao(texto, codigo, dropdown, button) {
+    const div = document.createElement("div");
+    div.textContent = texto;
+    div.setAttribute("role", "option");
+    div.dataset.codigo = codigo;
+    div.tabIndex = 0;
+    div.addEventListener("click", () => {
+      button.textContent = texto + " ▶";
+      dropdown.hidden = true;
+      button.setAttribute("aria-expanded", "false");
+      if (dropdown === dropdownMarca) {
+        marcaSelecionada = codigo;
+        modeloSelecionado = null;
+        anoSelecionado = null;
+        btnModelo.textContent = "SELECIONE ▶";
+        btnModelo.disabled = false;
+        btnAno.textContent = "SELECIONE ▶";
+        btnAno.disabled = true;
+        carregarModelos(codigo);
+      } else if (dropdown === dropdownModelo) {
+        modeloSelecionado = codigo;
+        anoSelecionado = null;
+        btnAno.textContent = "SELECIONE ▶";
+        btnAno.disabled = false;
+        carregarAnos(marcaSelecionada, modeloSelecionado);
+      } else if (dropdown === dropdownAno) {
+        anoSelecionado = codigo;
+        btnProsseguir.disabled = false;
+      }
+    });
+    div.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        div.click();
+      }
+    });
+    dropdown.appendChild(div);
+  }
+
   async function carregarMarcas() {
     const res = await fetch(`${baseUrl}/marcas`);
     const marcas = await res.json();
-    marcaSelect.innerHTML = '<option selected disabled>Selecione</option>';
-    marcas.forEach(marca => {
-      const opt = document.createElement("option");
-      opt.value = marca.codigo;
-      opt.textContent = marca.nome;
-      marcaSelect.appendChild(opt);
-    });
+    dropdownMarca.innerHTML = "";
+    marcas.forEach(marca => criarOpcao(marca.nome, marca.codigo, dropdownMarca, btnMarca));
   }
 
-  // Carregar modelos
-  marcaSelect.addEventListener("change", async () => {
-    const marcaId = marcaSelect.value;
+  async function carregarModelos(marcaId) {
     const res = await fetch(`${baseUrl}/marcas/${marcaId}/modelos`);
     const data = await res.json();
-    modeloSelect.innerHTML = '<option selected disabled>Selecione</option>';
-    data.modelos.forEach(modelo => {
-      const opt = document.createElement("option");
-      opt.value = modelo.codigo;
-      opt.textContent = modelo.nome;
-      modeloSelect.appendChild(opt);
-    });
-    anoSelect.innerHTML = '<option selected disabled>Selecione</option>';
-  });
+    dropdownModelo.innerHTML = "";
+    data.modelos.forEach(modelo => criarOpcao(modelo.nome, modelo.codigo, dropdownModelo, btnModelo));
+  }
 
-  // Carregar anos
-  modeloSelect.addEventListener("change", async () => {
-    const marcaId = marcaSelect.value;
-    const modeloId = modeloSelect.value;
+  async function carregarAnos(marcaId, modeloId) {
     const res = await fetch(`${baseUrl}/marcas/${marcaId}/modelos/${modeloId}/anos`);
     const anos = await res.json();
-    anoSelect.innerHTML = '<option selected disabled>Selecione</option>';
-    anos.forEach(ano => {
-      const opt = document.createElement("option");
-      opt.value = ano.codigo;
-      opt.textContent = ano.nome;
-      anoSelect.appendChild(opt);
+    dropdownAno.innerHTML = "";
+    anos.forEach(ano => criarOpcao(ano.nome, ano.codigo, dropdownAno, btnAno));
+  }
+
+  // Função para alternar dropdowns
+  function toggleDropdown(dropdown, button) {
+    const isOpen = !dropdown.hidden;
+    // Fechar todos
+    [dropdownMarca, dropdownModelo, dropdownAno].forEach(d => {
+      d.hidden = true;
+      d.previousElementSibling.setAttribute("aria-expanded", "false");
     });
-  });
-
-  // Buscar valor FIPE
-  anoSelect.addEventListener("change", async () => {
-    const marcaId = marcaSelect.value;
-    const modeloId = modeloSelect.value;
-    const anoId = anoSelect.value;
-    const res = await fetch(`${baseUrl}/marcas/${marcaId}/modelos/${modeloId}/anos/${anoId}`);
-    const dados = await res.json();
-    valorFipeAtual = parseFloat(dados.Valor.replace("R$", "").replace(".", "").replace(",", "."));
-    valorFipeDiv.textContent = `Valor original da Tabela FIPE: ${dados.Valor}`;
-  });
-
-  // Cálculo final do checklist
-  document.getElementById("checklist-form").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const itens = document.querySelectorAll(".checklist-item");
-    let fatorTotal = 0;
-    let notaTotal = 0;
-
-    itens.forEach(item => {
-      const valor = item.value;
-      if (valor === "regular") {
-        fatorTotal += parseFloat(item.dataset.regular || 0);
-        notaTotal += 1;
-      } else if (valor === "ruim") {
-        fatorTotal += parseFloat(item.dataset.ruim || 0);
-        notaTotal += 2;
-      } else if (valor === "grande") {
-        fatorTotal += parseFloat(item.dataset.grande || 0);
-        notaTotal += 3;
-      }
-    });
-
-    const media = notaTotal / itens.length;
-    const valorDescontado = valorFipeAtual * fatorTotal;
-    const valorFinal = valorFipeAtual - valorDescontado;
-
-    let condicao = "";
-
-    // Regra extra: se valor estimado < 50% da FIPE, condição é automaticamente "Ruim"
-    if (valorFinal < valorFipeAtual * 0.5) {
-      condicao = "Ruim ❌";
-    } else if (media <= 0.5) {
-      condicao = "Bom ✅";
-    } else if (media <= 1.2) {
-      condicao = "Aceitável ⚠️";
-    } else {
-      condicao = "Ruim ❌";
+    if (!isOpen) {
+      dropdown.hidden = false;
+      button.setAttribute("aria-expanded", "true");
+      dropdown.focus();
     }
+  }
 
-    resultadoDiv.innerHTML = isNaN(valorFinal)
-      ? "Selecione marca, modelo e ano primeiro."
-      : `
-        <p><strong>Valor estimado de compra:</strong> ${valorFinal.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
-        <p><strong>Desconto aplicado:</strong> ${valorDescontado.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
-        <p><strong>Condição geral do carro:</strong> ${condicao}</p>
-      `;
+  btnMarca.addEventListener("click", () => toggleDropdown(dropdownMarca, btnMarca));
+  btnModelo.addEventListener("click", () => {
+    if (!btnModelo.disabled) toggleDropdown(dropdownModelo, btnModelo);
+  });
+  btnAno.addEventListener("click", () => {
+    if (!btnAno.disabled) toggleDropdown(dropdownAno, btnAno);
+  });
+
+  // Fechar dropdowns ao clicar fora
+  document.addEventListener("click", (e) => {
+    if (![btnMarca, dropdownMarca, btnModelo, dropdownModelo, btnAno, dropdownAno].some(el => el.contains(e.target))) {
+      [dropdownMarca, dropdownModelo, dropdownAno].forEach(d => {
+        d.hidden = true;
+        d.previousElementSibling.setAttribute("aria-expanded", "false");
+      });
+    }
+  });
+
+  // Botão prosseguir
+  btnProsseguir.addEventListener("click", () => {
+    if (marcaSelecionada && modeloSelecionado && anoSelecionado) {
+      // redirecionar para checklist.html com query params para manter seleção
+      window.location.href = `checklist.html?marca=${marcaSelecionada}&modelo=${modeloSelecionado}&ano=${anoSelecionado}`;
+    }
   });
 
   carregarMarcas();
-});
-document.getElementById('prosseguir').addEventListener('click', () => {
-  const marca = document.getElementById('marca').value;
-  const modelo = document.getElementById('modelo').value;
-  const ano = document.getElementById('ano').value;
-
-  if (marca && modelo && ano) {
-    localStorage.setItem('marca', marca);
-    localStorage.setItem('modelo', modelo);
-    localStorage.setItem('ano', ano);
-    window.location.href = 'checklist.html';
-  } else {
-    alert('Por favor, selecione marca, modelo e ano.');
-  }
 });
