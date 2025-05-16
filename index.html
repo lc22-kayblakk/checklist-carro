@@ -1,179 +1,39 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Checklist de Avaliação</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="bg-zinc-950 text-white min-h-screen py-10 px-4 font-sans">
-    <div class="max-w-4xl mx-auto bg-zinc-900 rounded-2xl shadow-lg p-6 border border-zinc-800">
-      <h1 class="text-4xl font-extrabold text-center text-red-500 mb-10 tracking-tight">
-        Checklist de Avaliação do Veículo
-      </h1>
-
-      <!-- Seção de seleção FIPE -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <div>
-          <label class="block mb-1 font-medium">Marca</label>
-          <select id="marca" class="w-full p-2 rounded bg-zinc-800 border border-zinc-700"></select>
-        </div>
-        <div>
-          <label class="block mb-1 font-medium">Modelo</label>
-          <select id="modelo" class="w-full p-2 rounded bg-zinc-800 border border-zinc-700"></select>
-        </div>
-        <div>
-          <label class="block mb-1 font-medium">Ano</label>
-          <select id="ano" class="w-full p-2 rounded bg-zinc-800 border border-zinc-700"></select>
-        </div>
-      </div>
-
-      <form id="checklist-form" class="space-y-6">
-        <!-- Seção: Pneus e Rodas -->
-        <div>
-          <h2 class="text-xl font-semibold border-l-4 border-red-600 pl-4 mb-4">
-            Pneus e Rodas
-          </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label class="block mb-1">Pneus</label>
-              <select
-                class="w-full p-2 rounded bg-zinc-800 border border-zinc-700 checklist-item"
-                data-regular="0.03"
-                data-ruim="0.06"
-              >
-                <option value="bom">Bom</option>
-                <option value="regular">Regular</option>
-                <option value="ruim">Ruim</option>
-              </select>
-            </div>
-            <div>
-              <label class="block mb-1">Rodas</label>
-              <select
-                class="w-full p-2 rounded bg-zinc-800 border border-zinc-700 checklist-item"
-                data-regular="0.03"
-                data-ruim="0.06"
-              >
-                <option value="bom">Bom</option>
-                <option value="regular">Regular</option>
-                <option value="ruim">Ruim</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <!-- Botão de Cálculo -->
-        <div class="text-center">
-          <button
-            type="button"
-            onclick="calcularValor()"
-            class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-full shadow-md transition duration-200"
-          >
-            Calcular Valor Estimado
-          </button>
-        </div>
-
-        <!-- Resultado -->
-        <div
-          id="resultado"
-          class="text-center text-2xl font-semibold text-green-400 mt-6"
-        ></div>
-      </form>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carro Certo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="pagina-inicial">
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="Carro Certo">
+      <span class="slogan">DICAS ESSENCIAIS PARA UMA COMPRA SEM ARREPENDIMENTOS</span>
     </div>
+    <a href="#" class="botao-guia">Acesse o guia completo! 🔗</a>
+  </header>
 
-    <script>
-      let valorBase = 100000;
+  <main>
+    <h1>INICIE AGORA O CHECKLIST DO SEU CARRO DOS SONHOS</h1>
+    <div class="inputs">
+      <div>
+        <label>MARCA:</label>
+        <select id="marca"></select>
+      </div>
+      <div>
+        <label>MODELO:</label>
+        <select id="modelo"></select>
+      </div>
+      <div>
+        <label>ANO:</label>
+        <select id="ano"></select>
+      </div>
+    </div>
+    <button id="prosseguir">PROSSEGUIR PARA CHECKLIST</button>
+  </main>
 
-      async function carregarMarcas() {
-        const res = await fetch('https://parallelum.com.br/fipe/api/v1/carros/marcas');
-        const marcas = await res.json();
-        const marcaSelect = document.getElementById('marca');
-
-        marcaSelect.innerHTML = '<option value="">Selecione</option>';
-        marcas.forEach((marca) => {
-          const opt = document.createElement('option');
-          opt.value = marca.codigo;
-          opt.textContent = marca.nome;
-          marcaSelect.appendChild(opt);
-        });
-      }
-
-      async function carregarModelos(marcaId) {
-        const res = await fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${marcaId}/modelos`);
-        const data = await res.json();
-        const modeloSelect = document.getElementById('modelo');
-
-        modeloSelect.innerHTML = '<option value="">Selecione</option>';
-        data.modelos.forEach((modelo) => {
-          const opt = document.createElement('option');
-          opt.value = modelo.codigo;
-          opt.textContent = modelo.nome;
-          modeloSelect.appendChild(opt);
-        });
-      }
-
-      async function carregarAnos(marcaId, modeloId) {
-        const res = await fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${marcaId}/modelos/${modeloId}/anos`);
-        const anos = await res.json();
-        const anoSelect = document.getElementById('ano');
-
-        anoSelect.innerHTML = '<option value="">Selecione</option>';
-        anos.forEach((ano) => {
-          const opt = document.createElement('option');
-          opt.value = ano.codigo;
-          opt.textContent = ano.nome;
-          anoSelect.appendChild(opt);
-        });
-      }
-
-      async function obterValor(marcaId, modeloId, anoId) {
-        const res = await fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${marcaId}/modelos/${modeloId}/anos/${anoId}`);
-        const data = await res.json();
-        valorBase = parseFloat(data.Valor.replace('R$ ', '').replace('.', '').replace(',', '.'));
-      }
-
-      document.getElementById('marca').addEventListener('change', (e) => {
-        const marcaId = e.target.value;
-        if (marcaId) carregarModelos(marcaId);
-      });
-
-      document.getElementById('modelo').addEventListener('change', (e) => {
-        const marcaId = document.getElementById('marca').value;
-        const modeloId = e.target.value;
-        if (marcaId && modeloId) carregarAnos(marcaId, modeloId);
-      });
-
-      document.getElementById('ano').addEventListener('change', async (e) => {
-        const marcaId = document.getElementById('marca').value;
-        const modeloId = document.getElementById('modelo').value;
-        const anoId = e.target.value;
-        if (marcaId && modeloId && anoId) {
-          await obterValor(marcaId, modeloId, anoId);
-          calcularValor();
-        }
-      });
-
-      function calcularValor() {
-        let valorFinal = valorBase;
-
-        document.querySelectorAll('.checklist-item').forEach((item) => {
-          const valor = item.value;
-          const regular = parseFloat(item.getAttribute('data-regular'));
-          const ruim = parseFloat(item.getAttribute('data-ruim'));
-
-          if (valor === 'regular') {
-            valorFinal -= valorBase * regular;
-          } else if (valor === 'ruim') {
-            valorFinal -= valorBase * ruim;
-          }
-        });
-
-        document.getElementById('resultado').innerText =
-          'Valor Estimado: R$ ' + valorFinal.toFixed(2);
-      }
-
-      // Iniciar carregamento de marcas
-      carregarMarcas();
-    </script>
-  </body>
+  <script src="script.js"></script>
+</body>
 </html>
