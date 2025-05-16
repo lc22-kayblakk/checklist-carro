@@ -6,11 +6,27 @@
     <title>Checklist de Avaliação</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-zinc-900 text-white min-h-screen p-4">
-    <div class="max-w-4xl mx-auto">
-      <h1 class="text-3xl font-bold text-center text-red-600 mb-8">
+  <body class="bg-zinc-950 text-white min-h-screen py-10 px-4 font-sans">
+    <div class="max-w-4xl mx-auto bg-zinc-900 rounded-2xl shadow-lg p-6 border border-zinc-800">
+      <h1 class="text-4xl font-extrabold text-center text-red-500 mb-10 tracking-tight">
         Checklist de Avaliação do Veículo
       </h1>
+
+      <!-- Seção de seleção FIPE -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div>
+          <label class="block mb-1 font-medium">Marca</label>
+          <select id="marca" class="w-full p-2 rounded bg-zinc-800 border border-zinc-700"></select>
+        </div>
+        <div>
+          <label class="block mb-1 font-medium">Modelo</label>
+          <select id="modelo" class="w-full p-2 rounded bg-zinc-800 border border-zinc-700"></select>
+        </div>
+        <div>
+          <label class="block mb-1 font-medium">Ano</label>
+          <select id="ano" class="w-full p-2 rounded bg-zinc-800 border border-zinc-700"></select>
+        </div>
+      </div>
 
       <form id="checklist-form" class="space-y-6">
         <!-- Seção: Pneus e Rodas -->
@@ -51,7 +67,7 @@
           <button
             type="button"
             onclick="calcularValor()"
-            class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded shadow"
+            class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-full shadow-md transition duration-200"
           >
             Calcular Valor Estimado
           </button>
@@ -67,6 +83,72 @@
 
     <script>
       let valorBase = 100000;
+
+      async function carregarMarcas() {
+        const res = await fetch('https://parallelum.com.br/fipe/api/v1/carros/marcas');
+        const marcas = await res.json();
+        const marcaSelect = document.getElementById('marca');
+
+        marcaSelect.innerHTML = '<option value="">Selecione</option>';
+        marcas.forEach((marca) => {
+          const opt = document.createElement('option');
+          opt.value = marca.codigo;
+          opt.textContent = marca.nome;
+          marcaSelect.appendChild(opt);
+        });
+      }
+
+      async function carregarModelos(marcaId) {
+        const res = await fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${marcaId}/modelos`);
+        const data = await res.json();
+        const modeloSelect = document.getElementById('modelo');
+
+        modeloSelect.innerHTML = '<option value="">Selecione</option>';
+        data.modelos.forEach((modelo) => {
+          const opt = document.createElement('option');
+          opt.value = modelo.codigo;
+          opt.textContent = modelo.nome;
+          modeloSelect.appendChild(opt);
+        });
+      }
+
+      async function carregarAnos(marcaId, modeloId) {
+        const res = await fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${marcaId}/modelos/${modeloId}/anos`);
+        const anos = await res.json();
+        const anoSelect = document.getElementById('ano');
+
+        anoSelect.innerHTML = '<option value="">Selecione</option>';
+        anos.forEach((ano) => {
+          const opt = document.createElement('option');
+          opt.value = ano.codigo;
+          opt.textContent = ano.nome;
+          anoSelect.appendChild(opt);
+        });
+      }
+
+      async function obterValor(marcaId, modeloId, anoId) {
+        const res = await fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${marcaId}/modelos/${modeloId}/anos/${anoId}`);
+        const data = await res.json();
+        valorBase = parseFloat(data.Valor.replace('R$ ', '').replace('.', '').replace(',', '.'));
+      }
+
+      document.getElementById('marca').addEventListener('change', (e) => {
+        const marcaId = e.target.value;
+        if (marcaId) carregarModelos(marcaId);
+      });
+
+      document.getElementById('modelo').addEventListener('change', (e) => {
+        const marcaId = document.getElementById('marca').value;
+        const modeloId = e.target.value;
+        if (marcaId && modeloId) carregarAnos(marcaId, modeloId);
+      });
+
+      document.getElementById('ano').addEventListener('change', (e) => {
+        const marcaId = document.getElementById('marca').value;
+        const modeloId = document.getElementById('modelo').value;
+        const anoId = e.target.value;
+        if (marcaId && modeloId && anoId) obterValor(marcaId, modeloId, anoId);
+      });
 
       function calcularValor() {
         let valorFinal = valorBase;
@@ -86,6 +168,9 @@
         document.getElementById('resultado').innerText =
           'Valor Estimado: R$ ' + valorFinal.toFixed(2);
       }
+
+      // Iniciar carregamento de marcas
+      carregarMarcas();
     </script>
   </body>
 </html>
