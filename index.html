@@ -1,44 +1,420 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Carro Certo - Seleção</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Carro Certo - Selecione seu carro</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+  body {
+    margin: 0;
+    background-color: #000000;
+    font-family: 'Share Tech Mono', monospace;
+    color: white;
+  }
+
+  header {
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 40px;
+    position: relative;
+  }
+
+  /* Logo e texto */
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo img {
+    height: 45px;
+  }
+  .logo-text {
+    font-weight: 900;
+    font-size: 30px;
+    color: white;
+  }
+  .logo-text .red {
+    color: #ff1a1a;
+  }
+  .logo-subtext {
+    font-size: 10px;
+    color: white;
+    margin-top: 3px;
+  }
+
+  /* Botão guia completo */
+  .btn-guia {
+    background: white;
+    color: #ff1a1a;
+    border-radius: 50px;
+    padding: 8px 18px;
+    font-weight: bold;
+    font-family: 'Share Tech Mono', monospace;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-guia svg {
+    fill: #ff1a1a;
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Linha vermelha */
+  .linha-vermelha {
+    height: 4px;
+    background-color: #ff1a1a;
+    width: 100%;
+  }
+
+  main {
+    padding: 60px 20px 80px;
+    text-align: center;
+  }
+
+  main h1 {
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: 2px;
+    margin-bottom: 50px;
+  }
+
+  .selecao-container {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    max-width: 900px;
+    margin: 0 auto 40px;
+  }
+
+  .campo-selecao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .campo-selecao label {
+    margin-bottom: 12px;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .btn-select {
+    background: white;
+    color: black;
+    border-radius: 40px;
+    padding: 14px 40px 14px 24px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 180px;
+    justify-content: space-between;
+  }
+
+  /* seta personalizada */
+  .btn-select svg {
+    width: 18px;
+    height: 18px;
+    fill: black;
+  }
+
+  /* Dropdown escondido (simulado) */
+  .dropdown {
+    position: relative;
+  }
+
+  .dropdown-content {
+    position: absolute;
+    background: black;
+    border: 1px solid #ff1a1a;
+    color: white;
+    width: 180px;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 4px;
+    border-radius: 6px;
+    display: none;
+    z-index: 10;
+    text-align: left;
+  }
+
+  .dropdown-content div {
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+
+  .dropdown-content div:hover {
+    background: #ff1a1a;
+  }
+
+  .dropdown.show .dropdown-content {
+    display: block;
+  }
+
+  /* Botão prosseguir */
+  #btn-prosseguir {
+    background-color: #ff1a1a;
+    border: none;
+    border-radius: 20px;
+    padding: 15px 50px;
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: 400;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  #btn-prosseguir:disabled {
+    background-color: #7f0000;
+    cursor: not-allowed;
+  }
+
+</style>
 </head>
 <body>
   <header>
-    <div class="header-left">
-      <img src="logo.png" alt="Logo Carro Certo" class="logo" />
+    <div class="logo">
+      <img src="https://i.imgur.com/FlQuQKQ.png" alt="Logo Carro Certo" />
+      <div>
+        <div class="logo-text"><span class="red">CARRO</span>CERTO</div>
+        <div class="logo-subtext">DICAS ESSENCIAIS PARA UMA COMPRA SEM ARREPENDIMENTOS</div>
+      </div>
     </div>
-    <div class="header-right">
-      <a href="guia.html" class="btn-acesso">Acesse o guia completo! &#128279;</a>
-    </div>
+    <button class="btn-guia">
+      Acesse o guia completo!
+      <svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10z"/></svg>
+    </button>
   </header>
+  <div class="linha-vermelha"></div>
 
   <main>
     <h1>INICIE AGORA O CHECKLIST DO SEU CARRO DOS SONHOS</h1>
+    <div class="selecao-container">
 
-    <div class="selecoes">
-      <div class="botao-container">
-        <button id="btn-marca" class="btn-select" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="label-marca">SELECIONE ▶</button>
-        <div id="dropdown-marca" class="dropdown-list" role="listbox" tabindex="-1" hidden></div>
-        <label id="label-marca" class="visually-hidden">Marca</label>
+      <div class="campo-selecao dropdown">
+        <label for="marca">MARCA:</label>
+        <button id="btn-marca" class="btn-select" type="button">
+          SELECIONE
+          <svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10z"/></svg>
+        </button>
+        <div id="dropdown-marca" class="dropdown-content"></div>
       </div>
-      <div class="botao-container">
-        <button id="btn-modelo" class="btn-select" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="label-modelo" disabled>SELECIONE ▶</button>
-        <div id="dropdown-modelo" class="dropdown-list" role="listbox" tabindex="-1" hidden></div>
-        <label id="label-modelo" class="visually-hidden">Modelo</label>
-      <div class="botao-container">
-        <button id="btn-ano" class="btn-select" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="label-ano" disabled>SELECIONE ▶</button>
-        <div id="dropdown-ano" class="dropdown-list" role="listbox" tabindex="-1" hidden></div>
-        <label id="label-ano" class="visually-hidden">Ano</label>
+
+      <div class="campo-selecao dropdown">
+        <label for="modelo">MODELO:</label>
+        <button id="btn-modelo" class="btn-select" type="button" disabled>
+          SELECIONE
+          <svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10z"/></svg>
+        </button>
+        <div id="dropdown-modelo" class="dropdown-content"></div>
       </div>
+
+      <div class="campo-selecao dropdown">
+        <label for="ano">ANO:</label>
+        <button id="btn-ano" class="btn-select" type="button" disabled>
+          SELECIONE
+          <svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10z"/></svg>
+        </button>
+        <div id="dropdown-ano" class="dropdown-content"></div>
+      </div>
+
     </div>
 
-    <button id="btn-prosseguir" class="btn-prosseguir" disabled>PROSSEGUIR PARA CHECKLIST</button>
+    <button id="btn-prosseguir" disabled>PROSSEGUIR PARA CHECKLIST</button>
   </main>
 
-  <script src="script.js"></script>
+<script>
+  const baseUrl = "https://parallelum.com.br/fipe/api/v1/carros";
+
+  // Referências dos botões e dropdowns
+  const btnMarca = document.getElementById("btn-marca");
+  const dropdownMarca = document.getElementById("dropdown-marca");
+  const btnModelo = document.getElementById("btn-modelo");
+  const dropdownModelo = document.getElementById("dropdown-modelo");
+  const btnAno = document.getElementById("btn-ano");
+  const dropdownAno = document.getElementById("dropdown-ano");
+  const btnProsseguir = document.getElementById("btn-prosseguir");
+
+  // Variáveis para armazenar seleções
+  let marcaSelecionada = null;
+  let modeloSelecionado = null;
+  let anoSelecionado = null;
+
+  // Função para fechar todos dropdowns
+  function fecharDropdowns() {
+    dropdownMarca.style.display = "none";
+    dropdownModelo.style.display = "none";
+    dropdownAno.style.display = "none";
+  }
+
+  // Função para abrir dropdown especifico
+  function abrirDropdown(dropdown) {
+    fecharDropdowns();
+    dropdown.style.display = "block";
+  }
+
+  // Carregar marcas da API
+  async function carregarMarcas() {
+    const res = await fetch(`${baseUrl}/marcas`);
+    const marcas = await res.json();
+    dropdownMarca.innerHTML = "";
+    marcas.forEach(marca => {
+      const div = document.createElement("div");
+      div.textContent = marca.nome;
+      div.dataset.codigo = marca.codigo;
+      div.addEventListener("click", () => {
+        marcaSelecionada = {codigo: marca.codigo, nome: marca.nome};
+        btnMarca.textContent = marca.nome;
+        btnMarca.appendChild(svgSeta());
+        dropdownMarca.style.display = "none";
+
+        // Resetar modelo e ano
+        modeloSelecionado = null;
+        anoSelecionado = null;
+        btnModelo.textContent = "SELECIONE";
+        btnModelo.appendChild(svgSeta());
+        btnModelo.disabled = false;
+        dropdownModelo.innerHTML = "";
+        btnAno.textContent = "SELECIONE";
+        btnAno.appendChild(svgSeta());
+        btnAno.disabled = true;
+        dropdownAno.innerHTML = "";
+
+        carregarModelos(marca.codigo);
+        validarBotaoProsseguir();
+      });
+      dropdownMarca.appendChild(div);
+    });
+  }
+
+  // Carregar modelos da API
+  async function carregarModelos(codigoMarca) {
+    const res = await fetch(`${baseUrl}/marcas/${codigoMarca}/modelos`);
+    const data = await res.json();
+    dropdownModelo.innerHTML = "";
+    data.modelos.forEach(modelo => {
+      const div = document.createElement("div");
+      div.textContent = modelo.nome;
+      div.dataset.codigo = modelo.codigo;
+      div.addEventListener("click", () => {
+        modeloSelecionado = {codigo: modelo.codigo, nome: modelo.nome};
+        btnModelo.textContent = modelo.nome;
+        btnModelo.appendChild(svgSeta());
+        dropdownModelo.style.display = "none";
+
+        // Resetar ano
+        anoSelecionado = null;
+        btnAno.textContent = "SELECIONE";
+        btnAno.appendChild(svgSeta());
+        btnAno.disabled = false;
+        dropdownAno.innerHTML = "";
+
+        carregarAnos(marcaSelecionada.codigo, modelo.codigo);
+        validarBotaoProsseguir();
+      });
+      dropdownModelo.appendChild(div);
+    });
+  }
+
+  // Carregar anos da API
+  async function carregarAnos(codigoMarca, codigoModelo) {
+    const res = await fetch(`${baseUrl}/marcas/${codigoMarca}/modelos/${codigoModelo}/anos`);
+    const anos = await res.json();
+    dropdownAno.innerHTML = "";
+    anos.forEach(ano => {
+      const div = document.createElement("div");
+      div.textContent = ano.nome;
+      div.dataset.codigo = ano.codigo;
+      div.addEventListener("click", () => {
+        anoSelecionado = {codigo: ano.codigo, nome: ano.nome};
+        btnAno.textContent = ano.nome;
+        btnAno.appendChild(svgSeta());
+        dropdownAno.style.display = "none";
+        validarBotaoProsseguir();
+      });
+      dropdownAno.appendChild(div);
+    });
+  }
+
+  // Validar botão prosseguir
+  function validarBotaoProsseguir() {
+    btnProsseguir.disabled = !(marcaSelecionada && modeloSelecionado && anoSelecionado);
+  }
+
+  // Função seta svg para colocar no botão
+  function svgSeta() {
+    const svgNS = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("width", "18");
+    svg.setAttribute("height", "18");
+    const path = document.createElementNS(svgNS, "path");
+    path.setAttribute("d", "M10 17l5-5-5-5v10z");
+    svg.appendChild(path);
+    return svg;
+  }
+
+  // Eventos dos botões para abrir dropdown
+  btnMarca.addEventListener("click", () => {
+    if (dropdownMarca.style.display === "block") {
+      dropdownMarca.style.display = "none";
+    } else {
+      abrirDropdown(dropdownMarca);
+    }
+  });
+
+  btnModelo.addEventListener("click", () => {
+    if (btnModelo.disabled) return;
+    if (dropdownModelo.style.display === "block") {
+      dropdownModelo.style.display = "none";
+    } else {
+      abrirDropdown(dropdownModelo);
+    }
+  });
+
+  btnAno.addEventListener("click", () => {
+    if (btnAno.disabled) return;
+    if (dropdownAno.style.display === "block") {
+      dropdownAno.style.display = "none";
+    } else {
+      abrirDropdown(dropdownAno);
+    }
+  });
+
+  // Fechar dropdowns se clicar fora
+  document.addEventListener("click", (e) => {
+    if (!btnMarca.contains(e.target) && !dropdownMarca.contains(e.target)) {
+      dropdownMarca.style.display = "none";
+    }
+    if (!btnModelo.contains(e.target) && !dropdownModelo.contains(e.target)) {
+      dropdownModelo.style.display = "none";
+    }
+    if (!btnAno.contains(e.target) && !dropdownAno.contains(e.target)) {
+      dropdownAno.style.display = "none";
+    }
+  });
+
+  // Botão prosseguir: vai para checklist.html enviando dados na URL
+  btnProsseguir.addEventListener("click", () => {
+    if (marcaSelecionada && modeloSelecionado && anoSelecionado) {
+      const url = `checklist.html?marca=${marcaSelecionada.codigo}&modelo=${modeloSelecionado.codigo}&ano=${anoSelecionado.codigo}`;
+      window.location.href = url;
+    }
+  });
+
+  // Inicializar
+  carregarMarcas();
+</script>
 </body>
 </html>
