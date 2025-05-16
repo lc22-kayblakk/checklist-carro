@@ -143,11 +143,14 @@
         if (marcaId && modeloId) carregarAnos(marcaId, modeloId);
       });
 
-      document.getElementById('ano').addEventListener('change', (e) => {
+      document.getElementById('ano').addEventListener('change', async (e) => {
         const marcaId = document.getElementById('marca').value;
         const modeloId = document.getElementById('modelo').value;
         const anoId = e.target.value;
-        if (marcaId && modeloId && anoId) obterValor(marcaId, modeloId, anoId);
+        if (marcaId && modeloId && anoId) {
+          await obterValor(marcaId, modeloId, anoId);
+          calcularValor();
+        }
       });
 
       function calcularValor() {
