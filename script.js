@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
   const baseUrl = "https://parallelum.com.br/fipe/api/v1/carros";
   const btnMarca = document.getElementById("btn-marca");
@@ -116,3 +117,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   carregarMarcas();
 });
+
