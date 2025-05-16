@@ -1,117 +1,182 @@
+/* Reset básico */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Orbitron', sans-serif;
 }
 
 body {
   background-color: #000;
   color: #fff;
-  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 header {
-  padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 3px solid red;
+  background: #000;
+  padding: 20px 40px;
+  border-bottom: 3px solid #ff2828;
 }
 
 .logo {
-  font-size: 2rem;
-  color: white;
+  max-height: 50px;
+  user-select: none;
 }
 
-.logo small {
-  font-size: 0.6rem;
-  font-weight: 400;
-}
-
-.guia-btn {
-  background-color: white;
-  color: red;
+.header-right .btn-acesso {
+  background: #fff;
+  color: #ff2828;
+  font-weight: 700;
   padding: 10px 20px;
-  border-radius: 20px;
-  font-weight: bold;
+  border-radius: 30px;
   text-decoration: none;
-  display: inline-flex;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.9rem;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.header-right .btn-acesso:hover {
+  background-color: #ff2828;
+  color: white;
 }
 
 main {
-  margin-top: 60px;
-  padding: 20px;
+  flex-grow: 1;
+  padding: 40px 20px;
+  text-align: center;
 }
 
 h1 {
-  font-size: 1.6rem;
+  font-weight: 300;
+  letter-spacing: 2px;
   margin-bottom: 40px;
+  font-size: 1.8rem;
 }
 
-.form-container {
+.selecoes {
   display: flex;
-  justify-content: center;
-  gap: 50px;
-  margin-bottom: 50px;
+  justify-content: space-around;
   flex-wrap: wrap;
+  gap: 40px;
+  margin-bottom: 50px;
 }
 
-label {
-  font-size: 0.9rem;
-  letter-spacing: 0.05em;
+.botao-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 180px;
+}
+
+.botao-container label {
   margin-bottom: 8px;
-  display: inline-block;
-  color: white;
-}
-
-.select-box {
-  background-color: white;
-  color: black;
-  border: none;
-  padding: 15px 45px 15px 25px;
-  border-radius: 30px;
-  font-size: 1.2rem;
   font-weight: 400;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  position: relative;
-  cursor: pointer;
-  background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>');
-  background-repeat: no-repeat;
-  background-position: right 15px center;
-  background-size: 20px 20px;
+  font-size: 0.9rem;
+  color: #bbb;
+  letter-spacing: 1.5px;
 }
 
-.select-box:disabled {
+.btn-select {
+  background: white;
+  color: black;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 300;
+  font-size: 1.1rem;
+  border: none;
+  padding: 12px 40px 12px 20px;
+  border-radius: 40px;
+  cursor: pointer;
+  position: relative;
+  text-align: left;
+  width: 100%;
+  max-width: 260px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-select:after {
+  content: "▶";
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 700;
+  color: black;
+}
+
+.btn-select:disabled {
   background-color: #ddd;
-  color: #888;
+  color: #666;
   cursor: not-allowed;
-  background-image: none;
+}
+
+.dropdown-list {
+  background: white;
+  color: black;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 6px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  text-align: left;
+  z-index: 1000;
+  position: absolute;
+  width: 260px;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.dropdown-list div {
+  padding: 12px 20px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdown-list div:last-child {
+  border-bottom: none;
+}
+
+.dropdown-list div:hover,
+.dropdown-list div[aria-selected="true"] {
+  background-color: #ff2828;
+  color: white;
 }
 
 .btn-prosseguir {
-  background-color: #ff2f2f;
-  color: white;
-  padding: 15px 60px;
+  background: #ff2828;
   border: none;
-  border-radius: 25px;
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 300;
   font-size: 1.2rem;
+  padding: 12px 50px;
+  border-radius: 25px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  transition: background-color 0.3s ease;
 }
 
 .btn-prosseguir:disabled {
-  background-color: #aa1a1a;
+  background-color: #bb2a2a;
   cursor: not-allowed;
 }
 
 .btn-prosseguir:hover:not(:disabled) {
-  background-color: #e11e1e;
+  background-color: #ff4545;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  border: 0 !important;
 }
