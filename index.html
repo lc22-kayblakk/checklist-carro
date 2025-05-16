@@ -1,37 +1,42 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carro Certo</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carro Certo - Seleção</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="pagina-inicial">
+<body>
   <header>
-    <div class="logo">
-      <img src="logo.png" alt="Carro Certo">
-      <span class="slogan">DICAS ESSENCIAIS PARA UMA COMPRA SEM ARREPENDIMENTOS</span>
+    <div class="header-left">
+      <img src="logo.png" alt="Logo Carro Certo" class="logo" />
     </div>
-    <a href="#" class="botao-guia">Acesse o guia completo! 🔗</a>
+    <div class="header-right">
+      <a href="guia.html" class="btn-acesso">Acesse o guia completo! &#128279;</a>
+    </div>
   </header>
 
   <main>
     <h1>INICIE AGORA O CHECKLIST DO SEU CARRO DOS SONHOS</h1>
-    <div class="inputs">
-      <div>
-        <label>MARCA:</label>
-        <select id="marca"></select>
+
+    <div class="selecoes">
+      <div class="botao-container">
+        <button id="btn-marca" class="btn-select" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="label-marca">SELECIONE ▶</button>
+        <div id="dropdown-marca" class="dropdown-list" role="listbox" tabindex="-1" hidden></div>
+        <label id="label-marca" class="visually-hidden">Marca</label>
       </div>
-      <div>
-        <label>MODELO:</label>
-        <select id="modelo"></select>
-      </div>
-      <div>
-        <label>ANO:</label>
-        <select id="ano"></select>
+      <div class="botao-container">
+        <button id="btn-modelo" class="btn-select" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="label-modelo" disabled>SELECIONE ▶</button>
+        <div id="dropdown-modelo" class="dropdown-list" role="listbox" tabindex="-1" hidden></div>
+        <label id="label-modelo" class="visually-hidden">Modelo</label>
+      <div class="botao-container">
+        <button id="btn-ano" class="btn-select" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="label-ano" disabled>SELECIONE ▶</button>
+        <div id="dropdown-ano" class="dropdown-list" role="listbox" tabindex="-1" hidden></div>
+        <label id="label-ano" class="visually-hidden">Ano</label>
       </div>
     </div>
-    <button id="prosseguir">PROSSEGUIR PARA CHECKLIST</button>
+
+    <button id="btn-prosseguir" class="btn-prosseguir" disabled>PROSSEGUIR PARA CHECKLIST</button>
   </main>
 
   <script src="script.js"></script>
