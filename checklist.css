@@ -1,0 +1,124 @@
+
+/* Estilos globais */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+header {
+  background-color: #cc0000;
+  color: white;
+  padding: 16px;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.container {
+  max-width: 960px;
+  margin: auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  margin-top: 20px;
+}
+
+h2 {
+  margin-top: 0;
+  color: #cc0000;
+}
+
+form > div {
+  margin-bottom: 12px;
+}
+
+label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+select, button {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #cc0000;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #a80000;
+}
+
+/* Resultado */
+#valor-fipe, #resultado {
+  font-size: 1.2rem;
+  margin-top: 16px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-left: 5px solid #cc0000;
+}
+
+/* Estilos para abas */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  border-bottom: 2px solid #ccc;
+}
+
+.tab-button {
+  padding: 10px 16px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-bottom: 4px solid transparent;
+  font-weight: 600;
+  transition: border-color 0.3s;
+}
+
+.tab-button.active {
+  border-bottom-color: #cc0000;
+  color: #cc0000;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Estilo dos grupos de itens do checklist */
+.checklist-group {
+  margin-bottom: 24px;
+}
+
+.checklist-group label {
+  font-weight: 500;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  .tabs {
+    flex-direction: column;
+  }
+
+  .tab-button {
+    width: 100%;
+    text-align: left;
+  }
+}
