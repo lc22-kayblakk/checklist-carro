@@ -1,25 +1,33 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checklist</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Checklist Carro Certo</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="pagina-checklist">
-  <header>
-    <div class="logo">
-      <img src="logo.png" alt="Carro Certo">
-      <span class="slogan">DICAS ESSENCIAIS PARA UMA COMPRA SEM ARREPENDIMENTOS</span>
+<body>
+  <h1>Checklist para Avaliação do Veículo</h1>
+  
+  <form id="checklist-form">
+    <div>
+      <label for="marca">Marca:</label>
+      <select id="marca" required></select>
     </div>
-    <a href="#" class="botao-guia">Acesse o guia completo! 🔗</a>
-  </header>
+    <div>
+      <label for="modelo">Modelo:</label>
+      <select id="modelo" required></select>
+    </div>
+    <div>
+      <label for="ano">Ano:</label>
+      <select id="ano" required></select>
+    </div>
 
-  <main>
-    <div id="checklist-container">
-      <!-- Cole aqui o conteúdo do seu checklist existente -->
-      <!-- 🔧 Motor -->
+    <hr />
+
+    <h2>Itens do Checklist</h2>
+
+    <!-- 🔧 Motor -->
 <div class="col-12">
   <h5 class="mt-4 text-danger">🔧 Motor e Transmissão</h5>
 </div>
@@ -341,26 +349,11 @@
   </select>
 </div>
 
-    <!-- Seu formulário permanece igual -->
-    <!-- ... (toda a estrutura do checklist que você mandou) ... -->
+    <button type="submit">Calcular Valor</button>
+  </form>
 
-    <form id="checklist-form" class="mb-4">
-      <!-- Checklist está exatamente como você mandou, mantive tudo -->
-      <!-- ... -->
-    </form>
-
-  <div class="mt-4 text-center">
-  <button type="submit" class="btn btn-danger px-5">Calcular Valor</button>
-</div>
-        
-</form>
-
-<div id="valor-fipe" class="text-center fs-5 mt-3"></div>
-<div id="resultado" class="text-center fs-4 mt-2"></div>
-<div id="resultado" class="text-center fs-4 mt-2"></div>
-      
-    </div>
-  </main>
+  <div id="valor-fipe" style="margin-top: 1rem; font-weight: bold;"></div>
+  <div id="resultado" style="margin-top: 0.5rem;"></div>
 
   <script src="script.js"></script>
 </body>
