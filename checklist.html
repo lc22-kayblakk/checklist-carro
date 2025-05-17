@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Checklist - Carro Certo</title>
-  <link rel="stylesheet" href="styles-checklist.css" />
+  <link rel="stylesheet" href="styles.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-  <div class="container my-4">
-    <h2 class="text-center mb-4">Checklist do veículo selecionado</h2>
-    <div id="veiculoSelecionado" class="text-center mb-3"></div>
+  <div class="container">
+    <h2 class="titulo">Checklist do veículo selecionado</h2>
+    <div id="veiculoSelecionado" class="veiculo-info"></div>
 
     <ul class="nav nav-tabs" id="checklistTabs" role="tablist">
       <li class="nav-item" role="presentation">
@@ -39,7 +39,7 @@
       </li>
     </ul>
 
-    <div class="tab-content mt-3" id="checklistTabsContent">
+    <div class="tab-content" id="checklistTabsContent">
       <div class="tab-pane fade show active" id="motor" role="tabpanel"></div>
       <div class="tab-pane fade" id="lataria" role="tabpanel"></div>
       <div class="tab-pane fade" id="externos" role="tabpanel"></div>
@@ -51,154 +51,12 @@
     </div>
 
     <div class="text-center mt-4">
-      <button class="btn btn-primary" id="calcularValor">Calcular valor final</button>
+      <button id="calcularValor" class="btn btn-primary btn-enviar">Calcular valor final</button>
     </div>
-    <div class="text-center mt-3">
-      <h4 id="resultadoValor"></h4>
-    </div>
+    <div id="resultadoValor" class="resultado text-center mt-3"></div>
   </div>
 
+  <script src="script-checklist.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-  <script>
-    // Checklist dividido por categorias e itens, com percentuais internos para cálculo
-    const checklist = {
-      motor: [
-        { texto: 'Motor funcionando sem barulhos estranhos', percent: 0.05 },
-        { texto: 'Óleo e fluídos em nível correto', percent: 0.03 },
-        { texto: 'Velas de ignição em bom estado', percent: 0.02 }
-      ],
-      lataria: [
-        { texto: 'Sem amassados ou riscos profundos', percent: 0.04 },
-        { texto: 'Pintura uniforme e sem manchas', percent: 0.03 }
-      ],
-      externos: [
-        { texto: 'Faróis e lanternas funcionando', percent: 0.03 },
-        { texto: 'Espelhos retrovisores intactos', percent: 0.02 }
-      ],
-      interior: [
-        { texto: 'Estofamento em bom estado', percent: 0.03 },
-        { texto: 'Painel e botões funcionando', percent: 0.02 }
-      ],
-      acessorios: [
-        { texto: 'Ar condicionado funcionando', percent: 0.03 },
-        { texto: 'Sistema de som funcionando', percent: 0.02 }
-      ],
-      pneus: [
-        { texto: 'Pneus com boa profundidade de sulco', percent: 0.04 },
-        { texto: 'Sem desgaste irregular', percent: 0.03 }
-      ],
-      suspensao: [
-        { texto: 'Suspensão sem ruídos', percent: 0.04 },
-        { texto: 'Amortecedores em bom estado', percent: 0.03 }
-      ],
-      importantes: [
-        { texto: 'Documentação em dia', percent: 0.05 },
-        { texto: 'Sem multas pendentes', percent: 0.04 }
-      ]
-    };
-
-    // Função para criar inputs para cada item (com radio buttons)
-    function criarItensCategoria(categoria, containerId) {
-      const container = document.getElementById(containerId);
-      container.innerHTML = '';
-
-      checklist[categoria].forEach((item, index) => {
-        const divItem = document.createElement('div');
-        divItem.classList.add('mb-2');
-
-        divItem.innerHTML = `
-          <label><strong>${item.texto}</strong></label><br>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="${categoria}-${index}" id="${categoria}-${index}-bom" value="bom" checked>
-            <label class="form-check-label" for="${categoria}-${index}-bom">Bom</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="${categoria}-${index}" id="${categoria}-${index}-regular" value="regular">
-            <label class="form-check-label" for="${categoria}-${index}-regular">Regular</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="${categoria}-${index}" id="${categoria}-${index}-ruim" value="ruim">
-            <label class="form-check-label" for="${categoria}-${index}-ruim">Ruim</label>
-          </div>
-        `;
-
-        container.appendChild(divItem);
-      });
-    }
-
-    // Renderiza todos os itens nas abas
-    Object.keys(checklist).forEach(categoria => {
-      criarItensCategoria(categoria, categoria);
-    });
-
-    // Pega o veículo do localStorage e mostra o nome
-    const veiculo = JSON.parse(localStorage.getItem('veiculoSelecionado'));
-    if (veiculo) {
-      const veiculoDiv = document.getElementById('veiculoSelecionado');
-      veiculoDiv.innerHTML = `<strong>Veículo:</strong> ${veiculo.marcaNome} ${veiculo.modeloNome} ${veiculo.anoNome}<br>Carregando preço FIPE...`;
-
-      const urlFIPE = `https://parallelum.com.br/fipe/api/v1/carros/marcas/${veiculo.marcaCodigo}/modelos/${veiculo.modeloCodigo}/anos/${veiculo.anoCodigo}`;
-
-      fetch(urlFIPE)
-        .then(res => res.json())
-        .then(dados => {
-          veiculoDiv.innerHTML = `<strong>Veículo:</strong> ${veiculo.marcaNome} ${veiculo.modeloNome} ${veiculo.anoNome}<br><strong>Preço FIPE:</strong> ${dados.Valor}`;
-
-          // Guarda o valor FIPE em número para cálculo
-          veiculo.precoFipeNumero = Number(
-            dados.Valor.replace('R$', '').replace(/\./g, '').replace(',', '.').trim()
-          );
-        })
-        .catch(() => {
-          veiculoDiv.innerHTML += '<br><small>Preço FIPE não disponível.</small>';
-          veiculo.precoFipeNumero = 0;
-        });
-    } else {
-      document.getElementById('veiculoSelecionado').innerText = 'Nenhum veículo selecionado.';
-    }
-
-    // Função para calcular o valor final
-    document.getElementById('calcularValor').addEventListener('click', () => {
-      if (!veiculo || !veiculo.precoFipeNumero || veiculo.precoFipeNumero <= 0) {
-        alert('Preço FIPE inválido ou veículo não selecionado.');
-        return;
-      }
-
-      let descontoTotal = 0;
-
-      Object.keys(checklist).forEach(categoria => {
-        checklist[categoria].forEach((item, index) => {
-          // Pega valor marcado (bom, regular, ruim)
-          const radios = document.getElementsByName(`${categoria}-${index}`);
-          let valorEscolhido = 'bom';
-          for (const r of radios) {
-            if (r.checked) {
-              valorEscolhido = r.value;
-              break;
-            }
-          }
-
-          // Aplica percentual de desconto segundo condição
-          // Bom = 0% desconto
-          // Regular = metade do percentual do item
-          // Ruim = percentual cheio do item
-          if (valorEscolhido === 'regular') {
-            descontoTotal += checklist[categoria][index].percent / 2;
-          } else if (valorEscolhido === 'ruim') {
-            descontoTotal += checklist[categoria][index].percent;
-          }
-        });
-      });
-
-      // Calcula preço final descontando
-      const precoFinal = veiculo.precoFipeNumero * (1 - descontoTotal);
-
-      // Formata para real
-      const precoFinalFormatado = precoFinal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-
-      document.getElementById('resultadoValor').innerText = `Valor estimado final: ${precoFinalFormatado}`;
-    });
-  </script>
 </body>
 </html>
