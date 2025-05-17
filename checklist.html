@@ -3,358 +3,292 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Checklist Carro Certo</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Checklist - Carro Certo</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles-checklist.css" />
 </head>
 <body>
-  <h1>Checklist para Avaliação do Veículo</h1>
-  
-  <form id="checklist-form">
-    <div>
-      <label for="marca">Marca:</label>
-      <select id="marca" required></select>
-    </div>
-    <div>
-      <label for="modelo">Modelo:</label>
-      <select id="modelo" required></select>
-    </div>
-    <div>
-      <label for="ano">Ano:</label>
-      <select id="ano" required></select>
-    </div>
+  <div class="container my-4">
+    <h2 class="mb-4">Checklist do Veículo</h2>
+    <div id="veiculoSelecionado" class="mb-3 fw-semibold"></div>
 
-    <hr />
+    <ul class="nav nav-tabs" id="checklistTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link active"
+          id="motor-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#motor"
+          type="button"
+          role="tab"
+          aria-controls="motor"
+          aria-selected="true"
+        >
+          Motor
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link"
+          id="freios-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#freios"
+          type="button"
+          role="tab"
+          aria-controls="freios"
+          aria-selected="false"
+        >
+          Freios
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link"
+          id="pneus-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#pneus"
+          type="button"
+          role="tab"
+          aria-controls="pneus"
+          aria-selected="false"
+        >
+          Pneus
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link"
+          id="suspensao-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#suspensao"
+          type="button"
+          role="tab"
+          aria-controls="suspensao"
+          aria-selected="false"
+        >
+          Suspensão
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link"
+          id="importantes-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#importantes"
+          type="button"
+          role="tab"
+          aria-controls="importantes"
+          aria-selected="false"
+        >
+          Importantes
+        </button>
+      </li>
+    </ul>
 
-    <h2>Itens do Checklist</h2>
+    <div class="tab-content mt-3" id="checklistTabsContent">
+      <!-- Motor -->
+      <div
+        class="tab-pane fade show active"
+        id="motor"
+        role="tabpanel"
+        aria-labelledby="motor-tab"
+      >
+        <ul class="checklist-list">
+          <li>
+            <span>Óleo do motor</span>
+            <div class="btn-group btn-group-sm ms-3" role="group">
+              <input type="radio" name="oleo_motor" id="oleo_motor_bom" value="bom" checked />
+              <label for="oleo_motor_bom">Bom</label>
+              <input type="radio" name="oleo_motor" id="oleo_motor_regular" value="regular" />
+              <label for="oleo_motor_regular">Regular</label>
+              <input type="radio" name="oleo_motor" id="oleo_motor_ruim" value="ruim" />
+              <label for="oleo_motor_ruim">Ruim</label>
+            </div>
+          </li>
+          <li>
+            <span>Velas</span>
+            <div class="btn-group btn-group-sm ms-3" role="group">
+              <input type="radio" name="velas" id="velas_bom" value="bom" checked />
+              <label for="velas_bom">Bom</label>
+              <input type="radio" name="velas" id="velas_regular" value="regular" />
+              <label for="velas_regular">Regular</label>
+              <input type="radio" name="velas" id="velas_ruim" value="ruim" />
+              <label for="velas_ruim">Ruim</label>
+            </div>
+          </li>
+          <li>
+            <span>Correias</span>
+            <div class="btn-group btn-group-sm ms-3" role="group">
+              <input type="radio" name="correias" id="correias_bom" value="bom" checked />
+              <label for="correias_bom">Bom</label>
+              <input type="radio" name="correias" id="correias_regular" value="regular" />
+              <label for="correias_regular">Regular</label>
+              <input type="radio" name="correias" id="correias_ruim" value="ruim" />
+              <label for="correias_ruim">Ruim</label>
+            </div>
+          </li>
+        </ul>
+      </div>
 
-    <!-- 🔧 Motor -->
-<div class="col-12">
-  <h5 class="mt-4 text-danger">🔧 Motor e Transmissão</h5>
+      <!-- Freios -->
+      <div
+        class="tab-pane fade"
+        id="freios"
+        role="tabpanel"
+        aria-labelledby="freios-tab"
+      >
+        <ul class="checklist-list">
+          <li>
+            <span>Pastilhas de freio</span>
+            <div class="btn-group btn-group-sm ms-3" role="group">
+              <input type="radio" name="pastilhas_freio" id="pastilhas_freio_bom" value="bom" checked />
+              <label for="pastilhas_freio_bom">Bom</label>
+              <input type="radio" name="pastilhas_freio" id="pastilhas_freio_regular" value="regular" />
+              <label for="pastilhas_freio_regular">Regular</label>
+              <input type="radio" name="pastilhas_freio" id="pastilhas_freio_ruim" value="ruim" />
+              <label for="pastilhas_freio_ruim">Ruim</label>
+            </div>
+          </li>
+          <li>
+            <span>Discos de freio</span>
+            <div class="btn-group btn-group-sm ms-3" role="group">
+              <input type="radio" name="discos_freio" id="discos_freio_bom" value="bom" checked />
+              <label for="discos_freio_bom">Bom</label>
+              <input type="radio" name="discos_freio" id="discos_freio_regular" value="regular" />
+              <label for="discos_freio_regular">Regular</label>
+              <input type="radio" name="discos_freio" id="discos_freio_ruim" value="ruim" />
+              <label for="discos_freio_ruim">Ruim</label>
+            </div>
+          </li>
+          <li>
+            <span>Fluido de freio</span>
+            <div class="btn-group btn-group-sm ms-3" role="group">
+              <input type="radio" name="fluido_freio" id="fluido_freio_bom" value="bom" checked />
+              <label for="fluido_freio_bom">Bom</label>
+              <input type="radio" name="fluido_freio" id="fluido_freio_regular" value="regular" />
+              <label for="fluido_freio_regular">Regular</label>
+              <input type="radio" name="fluido_freio" id="fluido_freio_ruim" value="ruim" />
+              <label for="fluido_freio_ruim">Ruim</label>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Pneus -->
+      <div
+        class="tab-pane fade"
+        id="pneus"
+        role="tabpanel"
+        aria-labelledby="pneus-tab"
+      >
+        <ul class="checklist-list">
+          <li>
+            <span>Pneus dianteiros</span>
+            <div class="btn-group btn-group-sm ms-3" role="group">
+              <input type="radio" name="pneus_dianteiros" id="pneus_dianteiros_bom" value="bom" checked />
+              <label for="pneus_dianteiros_bom">Bom</label>
+              <input type="radio" name="pneus_dianteiros" id="pneus_dianteiros_regular" value="regular" />
+              <label for="pneus_dianteiros_regular">Regular</label>
+              <input type="radio" name="pneus_dianteiros" id="pneus_dianteiros_ruim" value="ruim" />
+              <label for="pneus_dianteiros_ruim">Ruim</label>
+            </div>
+          </li>
+          <li>
+            <span>Pneus traseiros</span>
+            <div class="btn-group btn-group-sm ms-3" role="group">
+              <input type="radio" name="pneus_traseiros" id="pneus_traseiros_bom" value="bom" checked />
+              <label for="pneus_traseiros_bom">Bom</label>
+              <input type="radio" name="pneus_traseiros" id="pneus_traseiros_regular" value="regular" />
+              <label for="pneus_traseiros_regular">Regular</label>
+              <input type="radio" name="pneus_traseiros" id="pneus_traseiros_ruim" value="ruim" />
+              <label for="pneus_traseiros_ruim">Ruim</label>
+            </div>
+          </li>
+          <li>
+            <span>Estepe</span>
+            <div class="btn-group btn-group-sm ms-3" role="group">
+              <input type="radio" name="estepe" id="estepe_bom" value="bom" checked />
+              <label for="estepe_bom">Bom</label>
+              <input type="radio" name="estepe" id="estepe_regular" value="regular" />
+              <label for="estepe_regular">Regular</label>
+              <input type="radio" name="estepe" id="estepe_ruim" value="ruim" />
+              <label for="estepe_ruim">Ruim</label>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Suspensão -->
+      <div
+        class="tab-pane fade"
+        id="suspensao"
+        role="tabpanel"
+        aria-labelledby="suspensao-tab"
+      >
+        <ul class="checklist-list">
+          <li>
+            <span>Amortecedores</span>
+            <div class="btn-group btn-group-sm ms-3" role="group">
+              <input type="radio" name="amortecedores" id="amortecedores_bom" value="bom" checked />
+              <label for="amortecedores_bom">Bom</label>
+              <input type="radio" name="amortecedores" id="amortecedores_regular" value="regular" />
+              <label for="amortecedores_regular">Regular</label>
+              <input type="radio" name="amortecedores" id="amortecedores_ruim" value="ruim" />
+              <label for="amortecedores_ruim">Ruim</label>
+            </div>
+          </li>
+          <li>
+            <span>Molas</span>
+            <div class="btn-group btn-group-sm ms-3" role="group">
+              <input type="radio" name="molas" id="molas_bom" value="bom" checked />
+              <label for="molas_bom">Bom</label>
+              <input type="radio" name="molas" id="molas_regular" value="regular" />
+              <label for="molas_regular">Regular</label>
+              <input type="radio" name="molas" id="molas_ruim" value="ruim" />
+              <label for="molas_ruim">Ruim</label>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Importantes -->
+      <div
+        class="tab-pane fade"
+        id="importantes"
+        role="tabpanel"
+        aria-labelledby="importantes-tab"
+      >
+        <ul class="checklist-list">
+          <li>
+            <span>Documentação</span>
+            <div class="btn-group btn-group-sm ms-3" role="group">
+              <input type="radio" name="documentacao" id="documentacao_bom" value="bom" checked />
+              <label for="documentacao_bom">Bom</label>
+              <input type="radio" name="documentacao" id="documentacao_regular" value="regular" />
+              <label for="documentacao_regular">Regular</label>
+              <input type="radio" name="documentacao" id="documentacao_ruim" value="ruim" />
+              <label for="documentacao_ruim">Ruim</label>
+            </div>
+          </li>
+          <li>
+            <span>Chave reserva</span>
+            <div class="btn-group btn-group-sm ms-3" role="group">
+              <input type="radio" name="chave_reserva" id="chave_reserva_bom" value="bom" checked />
+<label for="chave_reserva_bom">Sim</label>
+<input type="radio" name="chave_reserva" id="chave_reserva_ruim" value="ruim" />
+<label for="chave_reserva_ruim">Não</label>
+</div>
+</li>
+</ul>
+</div>
+    
+    <div class="mt-4">
+  <button id="btnSalvar" class="btn btn-primary me-2">Salvar Checklist</button>
+  <button id="btnCalcular" class="btn btn-success">Calcular Redução do Valor</button>
 </div>
 
-<div class="col-md-6">
-  <label class="form-label">Funcionamento do motor</label>
-  <select class="form-select checklist-item" data-regular="0.03" data-ruim="0.06">
-    <option value="bom">Bom</option>
-    <option value="regular">Regular</option>
-    <option value="ruim">Ruim</option>
-  </select>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Vazamento de óleo</label>
-  <select class="form-select checklist-item" data-ruim="0.05">
-    <option value="bom">Não</option>
-    <option value="ruim">Sim</option>
-  </select>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Vazamento de líquido de arrefecimento</label>
-  <select class="form-select checklist-item" data-ruim="0.04">
-    <option value="bom">Não</option>
-    <option value="ruim">Sim</option>
-  </select>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Ruído no motor</label>
-  <select class="form-select checklist-item" data-ruim="0.05">
-    <option value="bom">Sem ruído</option>
-    <option value="ruim">Batidas metálicas</option>
-  </select>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Embreagem</label>
-  <select class="form-select checklist-item" data-regular="0.03" data-ruim="0.03">
-    <option value="bom">Boas condições</option>
-    <option value="regular">Pedal alto</option>
-    <option value="ruim">Patinando</option>
-  </select>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Ruídos na transmissão</label>
-  <select class="form-select checklist-item" data-regular="0.03" data-ruim="0.06">
-    <option value="bom">Sem ruídos</option>
-    <option value="regular">Ruído leve</option>
-    <option value="ruim">Ruído severo</option>
-  </select>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Engate de marchas</label>
-  <select class="form-select checklist-item" data-regular="0.06" data-ruim="0.03">
-    <option value="bom">Sem problemas</option>
-    <option value="regular">Dificuldade em marcha específica</option>
-    <option value="regular">Escapa marcha</option>
-    <option value="ruim">Dificuldade em todas as marchas</option>
-    <option value="bom">Câmbio automático</option>
-  </select>
-</div>
-
-<!-- 🖌 Lataria e Pintura -->
-<div class="col-12">
-  <h5 class="mt-4 text-danger">🖌 Lataria e Pintura</h5>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Funilaria geral</label>
-  <select class="form-select checklist-item" data-regular="0.02" data-ruim="0.04">
-    <option value="bom">Boas condições</option>
-    <option value="regular">Pequenos detalhes</option>
-    <option value="ruim">Colisão/arranhados</option>
-  </select>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Estado da pintura</label>
-  <select class="form-select checklist-item" data-regular="0.01" data-ruim="0.03">
-    <option value="bom">Boas condições</option>
-    <option value="regular">Com queimados</option>
-    <option value="ruim">Ruim</option>
-  </select>
-</div>
-        
-<div class="col-md-6">
-  <label class="form-label">Podres</label>
-  <select class="form-select checklist-item" data-regular="0.01" data-ruim="0.03">
-    <option value="bom">Sem podres</option>
-    <option value="regular">Pequenos podres</option>
-    <option value="ruim">Bastantes podres</option>
-  </select>
-</div>
-        
-        <!-- 🚗 Detalhes Externos -->
-<div class="col-12">
-  <h5 class="mt-4 text-danger">🚗 Detalhes Externos</h5>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Faróis</label>
-  <select class="form-select checklist-item" data-regular="0.01" data-ruim="0.02">
-    <option value="bom">Bom</option>
-    <option value="regular">Amarelado/Embaçado</option>
-    <option value="ruim">Trincado/Quebrado</option>
-  </select>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Lanternas</label>
-  <select class="form-select checklist-item" data-regular="0.01" data-ruim="0.02">
-    <option value="bom">Bom</option>
-    <option value="regular">Desgastada</option>
-    <option value="ruim">Danificadas</option>
-  </select>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Frisos e molduras</label>
-  <select class="form-select checklist-item" data-regular="0.05" data-ruim="0.15">
-    <option value="bom">Presentes</option>
-    <option value="regular">Parcialmente faltando</option>
-    <option value="ruim">Faltando ou quebrados</option>
-  </select>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Borracha de portas</label>
-  <select class="form-select checklist-item" data-regular="0.01" data-ruim="0.02">
-    <option value="bom">Boas</option>
-    <option value="regular">Desgastadas</option>
-    <option value="ruim">Rasgadas/Faltando</option>
-  </select>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Retrovisores</label>
-  <select class="form-select checklist-item" data-regular="0.01" data-ruim="0.02">
-    <option value="bom">Inteiros</option>
-    <option value="regular">Arranhados</option>
-    <option value="ruim">Quebrados</option>
-  </select>
-</div>
-
-<!-- 🛋 Interior -->
-<div class="col-12">
-  <h5 class="mt-4 text-danger">🛋 Interior</h5>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Bancos e estofado</label>
-  <select class="form-select checklist-item" data-regular="0.015" data-ruim="0.03">
-    <option value="bom">Boas condições</option>
-    <option value="regular">Furado</option>
-    <option value="ruim">Rasgado</option>
-  </select>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Painel e acabamentos</label>
-  <select class="form-select checklist-item" data-regular="0.01" data-ruim="0.025">
-    <option value="bom">Boas condições</option>
-    <option value="regular">Pequenos detalhes</option>
-    <option value="ruim">Trincado/danificado</option>
-  </select>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Sistema elétrico interno</label>
-  <select class="form-select checklist-item" data-regular="0.02" data-ruim="0.04">
-    <option value="bom">Funcionando</option>
-    <option value="regular">Intermitente</option>
-    <option value="ruim">Com falhas</option>
-  </select>
-</div>
-
-        <!-- 🛠 Acessórios -->
-<div class="col-12">
-  <h5 class="mt-4 text-danger">🛠 Acessórios</h5>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Teto solar</label>
-  <select class="form-select checklist-item" data-regular="0.01" data-ruim="0.03">
-    <option value="bom">Funcionando ou não possui</option>
-    <option value="regular">Funcionamento eletrico com defeito</option>
-    <option value="regular">Entra água</option>
-    <option value="ruim">Ambos problemas</option>
-  </select>
-</div>
-        
-        <div class="col-md-6">
-  <label class="form-label">Retrovisores elétricos</label>
-  <select class="form-select checklist-item" data-ruim="0.03">
-    <option value="bom">Funcionando/não possui de fábrica</option>
-    <option value="ruim">Não funciona</option>
-  </select>
-</div>
-
-        <div class="col-md-6">
-  <label class="form-label">Ar condicionado</label>
-  <select class="form-select checklist-item" data-regular="0.02" data-ruim="0.04">
-    <option value="bom">Funcionando/não possui de fábrica</option>
-    <option value="regular">necessita revisão/funcionando fraco</option>
-    <option value="ruim">Não funciona</option>
-  </select>
-</div>
-
-<!-- 🛞 Pneus e Rodas -->
-<div class="col-12">
-  <h5 class="mt-4 text-danger">🛞 Pneus e Rodas</h5>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Pneus</label>
-  <select class="form-select checklist-item" data-regular="0.02" data-ruim="0.04" data-grande="0.07">
-    <option value="bom">Novos</option>
-    <option value="regular">Meia vida</option>
-    <option value="ruim">Desgastados</option>
-    <option value="grande">Remold (remoldado)</option>
-  </select>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Rodas</label>
-  <select class="form-select checklist-item" data-ruim="0.03">
-    <option value="bom">Boas condições</option>
-    <option value="ruim">Necessita troca/Reparo</option>
-  </select>
-</div>
-
-<!-- 🛠 Suspensão e freios -->
-<div class="col-12">
-  <h5 class="mt-4 text-danger">🛠 Suspensão e freios</h5>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Reparos</label>
-  <select class="form-select checklist-item" data-regular="0.02" data-ruim="0.05">
-    <option value="bom">Não necessita reparos</option>
-    <option value="regular">Reparo básico</option>
-    <option value="ruim">Reparo urgente</option>
-  </select>
-</div>
-        
-        <div class="col-md-6">
-  <label class="form-label">Barulhos ao rodar</label>
-  <select class="form-select checklist-item" data-regular="0.02" data-ruim="0.05">
-    <option value="bom">Sem ruídos</option>
-    <option value="regular">Leves estalos</option>
-    <option value="ruim">Ruídos fortes</option>
-  </select>
-</div>
-
-        <div class="col-md-6">
-  <label class="form-label">Pedal do freio</label>
-  <select class="form-select checklist-item" data-regular="0.02" data-ruim="0.05">
-    <option value="bom">Sem problemas, funciona muito bem</option>
-    <option value="regular">Frouxo ou “borrachudo”</option>
-    <option value="regular">Muito duro</option>
-    <option value="regular">Afundando aos poucos</option>
-    <option value="regular">Pedal vibrando ou tripidando ao freiar</option>
-    <option value="ruim">Com 2 (dois) ou mais problemas apresentados acima</option>
-  </select>
-</div>
-
-        <div class="col-md-6">
-  <label class="form-label">Ruidos ou vibração ao freiar</label>
-  <select class="form-select checklist-item" data-regular="0.02" data-ruim="0.02">
-    <option value="bom">Sem problemas, funciona muito bem</option>
-    <option value="regular">Chiado agudo (tipo assobio)</option>
-    <option value="regular">Grunhidos ou rangidos metálicos</option>
-    <option value="ruim">Batidas secas</option>
-  </select>
-</div>
-
-<!-- ⚠ Itens importantes -->
-<div class="col-12">
-  <h5 class="mt-4 text-danger">⚠ Itens importantes</h5>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Sinistro</label>
-  <select class="form-select checklist-item" data-regular="0.10" data-ruim="0.35" data-grande="1.0">
-    <option value="bom">Sem monta</option>
-    <option value="regular">Pequena monta</option>
-    <option value="ruim">Média monta</option>
-    <option value="grande">Grande monta</option>
-  </select>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Sistema airbag</label>
-  <select class="form-select checklist-item" data-ruim="0.10">
-    <option value="bom">Sistema intacto</option>
-    <option value="ruim">Airbag já acionado</option>
-  </select>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Alagamento</label>
-  <select class="form-select checklist-item" data-regular="0.02" data-ruim="0.15">
-    <option value="bom">Não teve contato com água</option>
-    <option value="regular">Teve contato leve (sem danos)</option>
-    <option value="ruim">Já passou por alagamento e foi restaurado</option>
-  </select>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label">Luz da injeção</label>
-  <select class="form-select checklist-item" data-regular="0.10" data-ruim="0.10">
-    <option value="bom">Apagada</option>
-    <option value="regular">Lâmpada removida</option>
-    <option value="ruim">Acesa</option>
-  </select>
-</div>
-
-    <button type="submit">Calcular Valor</button>
-  </form>
-
-  <div id="valor-fipe" style="margin-top: 1rem; font-weight: bold;"></div>
-  <div id="resultado" style="margin-top: 0.5rem;"></div>
-
-  <script src="script.js"></script>
-</body>
-</html>
+<div id="resultado" class="mt-3 fs-5 fw-bold"></div>
+</div> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> <script src="checklist.js"></script> </body> </html> ```
