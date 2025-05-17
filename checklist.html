@@ -4,291 +4,122 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Checklist - Carro Certo</title>
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles-checklist.css" />
 </head>
 <body>
   <div class="container my-4">
-    <h2 class="mb-4">Checklist do Veículo</h2>
-    <div id="veiculoSelecionado" class="mb-3 fw-semibold"></div>
+    <h2 class="text-center mb-4">Checklist do veículo selecionado</h2>
+    <div id="veiculoSelecionado" class="text-center mb-4"></div>
 
     <ul class="nav nav-tabs" id="checklistTabs" role="tablist">
       <li class="nav-item" role="presentation">
-        <button
-          class="nav-link active"
-          id="motor-tab"
-          data-bs-toggle="tab"
-          data-bs-target="#motor"
-          type="button"
-          role="tab"
-          aria-controls="motor"
-          aria-selected="true"
-        >
-          Motor
-        </button>
+        <button class="nav-link active" id="motor-tab" data-bs-toggle="tab" data-bs-target="#motor" type="button" role="tab">Motor</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button
-          class="nav-link"
-          id="freios-tab"
-          data-bs-toggle="tab"
-          data-bs-target="#freios"
-          type="button"
-          role="tab"
-          aria-controls="freios"
-          aria-selected="false"
-        >
-          Freios
-        </button>
+        <button class="nav-link" id="lataria-tab" data-bs-toggle="tab" data-bs-target="#lataria" type="button" role="tab">Lataria</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button
-          class="nav-link"
-          id="pneus-tab"
-          data-bs-toggle="tab"
-          data-bs-target="#pneus"
-          type="button"
-          role="tab"
-          aria-controls="pneus"
-          aria-selected="false"
-        >
-          Pneus
-        </button>
+        <button class="nav-link" id="externos-tab" data-bs-toggle="tab" data-bs-target="#externos" type="button" role="tab">Externos</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button
-          class="nav-link"
-          id="suspensao-tab"
-          data-bs-toggle="tab"
-          data-bs-target="#suspensao"
-          type="button"
-          role="tab"
-          aria-controls="suspensao"
-          aria-selected="false"
-        >
-          Suspensão
-        </button>
+        <button class="nav-link" id="interior-tab" data-bs-toggle="tab" data-bs-target="#interior" type="button" role="tab">Interior</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button
-          class="nav-link"
-          id="importantes-tab"
-          data-bs-toggle="tab"
-          data-bs-target="#importantes"
-          type="button"
-          role="tab"
-          aria-controls="importantes"
-          aria-selected="false"
-        >
-          Importantes
-        </button>
+        <button class="nav-link" id="acessorios-tab" data-bs-toggle="tab" data-bs-target="#acessorios" type="button" role="tab">Acessórios</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pneus-tab" data-bs-toggle="tab" data-bs-target="#pneus" type="button" role="tab">Pneus</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="suspensao-tab" data-bs-toggle="tab" data-bs-target="#suspensao" type="button" role="tab">Suspensão</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="importantes-tab" data-bs-toggle="tab" data-bs-target="#importantes" type="button" role="tab">Importantes</button>
       </li>
     </ul>
 
     <div class="tab-content mt-3" id="checklistTabsContent">
-      <!-- Motor -->
-      <div
-        class="tab-pane fade show active"
-        id="motor"
-        role="tabpanel"
-        aria-labelledby="motor-tab"
-      >
-        <ul class="checklist-list">
-          <li>
-            <span>Óleo do motor</span>
-            <div class="btn-group btn-group-sm ms-3" role="group">
-              <input type="radio" name="oleo_motor" id="oleo_motor_bom" value="bom" checked />
-              <label for="oleo_motor_bom">Bom</label>
-              <input type="radio" name="oleo_motor" id="oleo_motor_regular" value="regular" />
-              <label for="oleo_motor_regular">Regular</label>
-              <input type="radio" name="oleo_motor" id="oleo_motor_ruim" value="ruim" />
-              <label for="oleo_motor_ruim">Ruim</label>
-            </div>
-          </li>
-          <li>
-            <span>Velas</span>
-            <div class="btn-group btn-group-sm ms-3" role="group">
-              <input type="radio" name="velas" id="velas_bom" value="bom" checked />
-              <label for="velas_bom">Bom</label>
-              <input type="radio" name="velas" id="velas_regular" value="regular" />
-              <label for="velas_regular">Regular</label>
-              <input type="radio" name="velas" id="velas_ruim" value="ruim" />
-              <label for="velas_ruim">Ruim</label>
-            </div>
-          </li>
-          <li>
-            <span>Correias</span>
-            <div class="btn-group btn-group-sm ms-3" role="group">
-              <input type="radio" name="correias" id="correias_bom" value="bom" checked />
-              <label for="correias_bom">Bom</label>
-              <input type="radio" name="correias" id="correias_regular" value="regular" />
-              <label for="correias_regular">Regular</label>
-              <input type="radio" name="correias" id="correias_ruim" value="ruim" />
-              <label for="correias_ruim">Ruim</label>
-            </div>
-          </li>
+      <div class="tab-pane fade show active" id="motor" role="tabpanel">
+        <ul>
+          <li>Óleo do motor</li>
+          <li>Nível da água do radiador</li>
+          <li>Cabo de vela</li>
+          <li>Bateria</li>
+          <li>Coxim do motor</li>
         </ul>
       </div>
-
-      <!-- Freios -->
-      <div
-        class="tab-pane fade"
-        id="freios"
-        role="tabpanel"
-        aria-labelledby="freios-tab"
-      >
-        <ul class="checklist-list">
-          <li>
-            <span>Pastilhas de freio</span>
-            <div class="btn-group btn-group-sm ms-3" role="group">
-              <input type="radio" name="pastilhas_freio" id="pastilhas_freio_bom" value="bom" checked />
-              <label for="pastilhas_freio_bom">Bom</label>
-              <input type="radio" name="pastilhas_freio" id="pastilhas_freio_regular" value="regular" />
-              <label for="pastilhas_freio_regular">Regular</label>
-              <input type="radio" name="pastilhas_freio" id="pastilhas_freio_ruim" value="ruim" />
-              <label for="pastilhas_freio_ruim">Ruim</label>
-            </div>
-          </li>
-          <li>
-            <span>Discos de freio</span>
-            <div class="btn-group btn-group-sm ms-3" role="group">
-              <input type="radio" name="discos_freio" id="discos_freio_bom" value="bom" checked />
-              <label for="discos_freio_bom">Bom</label>
-              <input type="radio" name="discos_freio" id="discos_freio_regular" value="regular" />
-              <label for="discos_freio_regular">Regular</label>
-              <input type="radio" name="discos_freio" id="discos_freio_ruim" value="ruim" />
-              <label for="discos_freio_ruim">Ruim</label>
-            </div>
-          </li>
-          <li>
-            <span>Fluido de freio</span>
-            <div class="btn-group btn-group-sm ms-3" role="group">
-              <input type="radio" name="fluido_freio" id="fluido_freio_bom" value="bom" checked />
-              <label for="fluido_freio_bom">Bom</label>
-              <input type="radio" name="fluido_freio" id="fluido_freio_regular" value="regular" />
-              <label for="fluido_freio_regular">Regular</label>
-              <input type="radio" name="fluido_freio" id="fluido_freio_ruim" value="ruim" />
-              <label for="fluido_freio_ruim">Ruim</label>
-            </div>
-          </li>
+      <div class="tab-pane fade" id="lataria" role="tabpanel">
+        <ul>
+          <li>Amassados</li>
+          <li>Riscos na pintura</li>
+          <li>Ferrugem</li>
+          <li>Vazamentos de tinta</li>
         </ul>
       </div>
-
-      <!-- Pneus -->
-      <div
-        class="tab-pane fade"
-        id="pneus"
-        role="tabpanel"
-        aria-labelledby="pneus-tab"
-      >
-        <ul class="checklist-list">
-          <li>
-            <span>Pneus dianteiros</span>
-            <div class="btn-group btn-group-sm ms-3" role="group">
-              <input type="radio" name="pneus_dianteiros" id="pneus_dianteiros_bom" value="bom" checked />
-              <label for="pneus_dianteiros_bom">Bom</label>
-              <input type="radio" name="pneus_dianteiros" id="pneus_dianteiros_regular" value="regular" />
-              <label for="pneus_dianteiros_regular">Regular</label>
-              <input type="radio" name="pneus_dianteiros" id="pneus_dianteiros_ruim" value="ruim" />
-              <label for="pneus_dianteiros_ruim">Ruim</label>
-            </div>
-          </li>
-          <li>
-            <span>Pneus traseiros</span>
-            <div class="btn-group btn-group-sm ms-3" role="group">
-              <input type="radio" name="pneus_traseiros" id="pneus_traseiros_bom" value="bom" checked />
-              <label for="pneus_traseiros_bom">Bom</label>
-              <input type="radio" name="pneus_traseiros" id="pneus_traseiros_regular" value="regular" />
-              <label for="pneus_traseiros_regular">Regular</label>
-              <input type="radio" name="pneus_traseiros" id="pneus_traseiros_ruim" value="ruim" />
-              <label for="pneus_traseiros_ruim">Ruim</label>
-            </div>
-          </li>
-          <li>
-            <span>Estepe</span>
-            <div class="btn-group btn-group-sm ms-3" role="group">
-              <input type="radio" name="estepe" id="estepe_bom" value="bom" checked />
-              <label for="estepe_bom">Bom</label>
-              <input type="radio" name="estepe" id="estepe_regular" value="regular" />
-              <label for="estepe_regular">Regular</label>
-              <input type="radio" name="estepe" id="estepe_ruim" value="ruim" />
-              <label for="estepe_ruim">Ruim</label>
-            </div>
-          </li>
+      <div class="tab-pane fade" id="externos" role="tabpanel">
+        <ul>
+          <li>Faróis</li>
+          <li>Setas e luzes</li>
+          <li>Para-brisa</li>
+          <li>Retrovisores</li>
+          <li>Portas</li>
         </ul>
       </div>
-
-      <!-- Suspensão -->
-      <div
-        class="tab-pane fade"
-        id="suspensao"
-        role="tabpanel"
-        aria-labelledby="suspensao-tab"
-      >
-        <ul class="checklist-list">
-          <li>
-            <span>Amortecedores</span>
-            <div class="btn-group btn-group-sm ms-3" role="group">
-              <input type="radio" name="amortecedores" id="amortecedores_bom" value="bom" checked />
-              <label for="amortecedores_bom">Bom</label>
-              <input type="radio" name="amortecedores" id="amortecedores_regular" value="regular" />
-              <label for="amortecedores_regular">Regular</label>
-              <input type="radio" name="amortecedores" id="amortecedores_ruim" value="ruim" />
-              <label for="amortecedores_ruim">Ruim</label>
-            </div>
-          </li>
-          <li>
-            <span>Molas</span>
-            <div class="btn-group btn-group-sm ms-3" role="group">
-              <input type="radio" name="molas" id="molas_bom" value="bom" checked />
-              <label for="molas_bom">Bom</label>
-              <input type="radio" name="molas" id="molas_regular" value="regular" />
-              <label for="molas_regular">Regular</label>
-              <input type="radio" name="molas" id="molas_ruim" value="ruim" />
-              <label for="molas_ruim">Ruim</label>
-            </div>
-          </li>
+      <div class="tab-pane fade" id="interior" role="tabpanel">
+        <ul>
+          <li>Bancos</li>
+          <li>Cinto de segurança</li>
+          <li>Som e alto-falantes</li>
+          <li>Ar condicionado</li>
+          <li>Volante</li>
         </ul>
       </div>
+      <div class="tab-pane fade" id="acessorios" role="tabpanel">
+        <ul>
+          <li>Estepe</li>
+          <li>Macaco</li>
+          <li>Chave de roda</li>
+          <li>Triângulo</li>
+          <li>Alarme</li>
+        </ul>
+      </div>
+      <div class="tab-pane fade" id="pneus" role="tabpanel">
+        <ul>
+          <li>Estado geral</li>
+          <li>Pressão</li>
+          <li>Desgaste</li>
+          <li>Rodas</li>
+        </ul>
+      </div>
+      <div class="tab-pane fade" id="suspensao" role="tabpanel">
+        <ul>
+          <li>Amortecedores</li>
+          <li>Molas</li>
+          <li>Batentes</li>
+        </ul>
+      </div>
+      <div class="tab-pane fade" id="importantes" role="tabpanel">
+        <ul>
+          <li>Documentação</li>
+          <li>IPVA e licenciamento</li>
+          <li>Seguro</li>
+          <li>Manual do proprietário</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
-      <!-- Importantes -->
-      <div
-        class="tab-pane fade"
-        id="importantes"
-        role="tabpanel"
-        aria-labelledby="importantes-tab"
-      >
-        <ul class="checklist-list">
-          <li>
-            <span>Documentação</span>
-            <div class="btn-group btn-group-sm ms-3" role="group">
-              <input type="radio" name="documentacao" id="documentacao_bom" value="bom" checked />
-              <label for="documentacao_bom">Bom</label>
-              <input type="radio" name="documentacao" id="documentacao_regular" value="regular" />
-              <label for="documentacao_regular">Regular</label>
-              <input type="radio" name="documentacao" id="documentacao_ruim" value="ruim" />
-              <label for="documentacao_ruim">Ruim</label>
-            </div>
-          </li>
-          <li>
-            <span>Chave reserva</span>
-            <div class="btn-group btn-group-sm ms-3" role="group">
-              <input type="radio" name="chave_reserva" id="chave_reserva_bom" value="bom" checked />
-<label for="chave_reserva_bom">Sim</label>
-<input type="radio" name="chave_reserva" id="chave_reserva_ruim" value="ruim" />
-<label for="chave_reserva_ruim">Não</label>
-</div>
-</li>
-</ul>
-</div>
-    
-    <div class="mt-4">
-  <button id="btnSalvar" class="btn btn-primary me-2">Salvar Checklist</button>
-  <button id="btnCalcular" class="btn btn-success">Calcular Redução do Valor</button>
-</div>
-
-<div id="resultado" class="mt-3 fs-5 fw-bold"></div>
-</div> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> <script src="checklist.js"></script> </body> </html> ```
+  <script>
+    // Mostra o veículo selecionado vindo do localStorage
+    const veiculo = JSON.parse(localStorage.getItem('veiculoSelecionado'));
+    if (veiculo) {
+      document.getElementById('veiculoSelecionado').innerHTML = 
+        `<strong>Veículo:</strong> ${veiculo.marca} ${veiculo.modelo} ${veiculo.ano}`;
+    } else {
+      document.getElementById('veiculoSelecionado').innerHTML = '<em>Nenhum veículo selecionado.</em>';
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
