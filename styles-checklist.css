@@ -1,81 +1,29 @@
 body {
+  font-family: Arial, sans-serif;
   background: #fff;
-  color: #222;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #000;
 }
 
 h2 {
-  color: #b22222; /* Vermelho Carro Certo */
-  font-weight: 700;
+  color: #d32f2f; /* vermelho Carro Certo */
 }
 
-.checklist-list {
-  list-style: none;
-  padding-left: 0;
-}
-
-.checklist-list li {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0.4rem 0;
-  border-bottom: 1px solid #eee;
-  font-size: 1rem;
-}
-
-.checklist-list li span {
-  flex-grow: 1;
-}
-
-.btn-group input[type="radio"] {
-  display: none;
-}
-
-.btn-group label {
-  cursor: pointer;
-  padding: 0.2rem 0.8rem;
-  border: 1px solid #b22222;
-  margin-right: 4px;
-  border-radius: 4px;
-  user-select: none;
-  font-size: 0.9rem;
-  color: #b22222;
-  transition: all 0.2s ease;
-}
-
-.btn-group input[type="radio"]:checked + label {
-  background-color: #b22222;
-  color: white;
-  border-color: #8b0000;
-}
-
-.btn-group label:hover {
-  background-color: #f8d7da;
-  border-color: #b22222;
+ul {
+  list-style-type: disc;
+  margin-left: 20px;
 }
 
 .nav-tabs .nav-link {
-  color: #b22222;
+  color: #d32f2f;
   font-weight: 600;
 }
 
 .nav-tabs .nav-link.active {
-  background-color: #b22222;
+  background-color: #d32f2f;
   color: white;
-  border-color: #b22222 #b22222 #fff;
+  font-weight: 700;
 }
 
-.nav-tabs .nav-link:hover {
-  color: #8b0000;
-}
-
-/* Responsividade */
-@media (max-width: 576px) {
-  .checklist-list li {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .btn-group {
-    margin-top: 0.3rem;
-  }
+.container {
+  max-width: 800px;
 }
