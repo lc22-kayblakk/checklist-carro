@@ -3,239 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Seleção de Veículo - Carro Certo</title>
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: #fff;
-      color: #222;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      padding-top: 60px;
-    }
-
-    .container {
-      background: #fff;
-      width: 100%;
-      max-width: 480px;
-      border-radius: 8px;
-      box-shadow: 0 8px 20px rgb(0 0 0 / 0.15);
-      padding: 32px 28px;
-      box-sizing: border-box;
-    }
-
-    h1 {
-      font-weight: 700;
-      font-size: 1.8rem;
-      color: #b71c1c; /* vermelho do logo */
-      margin-bottom: 28px;
-      text-align: center;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    label {
-      font-weight: 600;
-      font-size: 1rem;
-      margin-bottom: 8px;
-      display: block;
-      color: #444;
-    }
-
-    select {
-      width: 100%;
-      padding: 10px 14px;
-      font-size: 1rem;
-      border-radius: 6px;
-      border: 2px solid #ccc;
-      background: #fafafa;
-      transition: border-color 0.3s ease;
-      cursor: pointer;
-    }
-
-    select:focus {
-      outline: none;
-      border-color: #b71c1c;
-      background: #fff;
-    }
-
-    select:disabled {
-      background: #eee;
-      cursor: not-allowed;
-      color: #888;
-    }
-
-    .mb-3 {
-      margin-bottom: 24px;
-    }
-
-    button {
-      width: 100%;
-      background: #b71c1c;
-      color: white;
-      font-weight: 700;
-      font-size: 1.1rem;
-      border: none;
-      padding: 14px 0;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      box-shadow: 0 4px 8px rgb(183 28 28 / 0.4);
-    }
-
-    button:disabled {
-      background: #a65858;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
-
-    button:hover:not(:disabled) {
-      background: #7f1212;
-    }
-
-  </style>
+  <title>Carro Certo - Escolha seu veículo</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
   <div class="container">
-    <h1>Selecione seu veículo</h1>
+    <h1 class="titulo">Carro Certo</h1>
+    <p class="subtitulo">Selecione seu veículo para iniciar o checklist</p>
 
-    <div class="mb-3">
-      <label for="marcaSelect">Marca:</label>
-      <select id="marcaSelect">
-        <option value="">Selecione uma marca</option>
-      </select>
-    </div>
-
-    <div class="mb-3">
-      <label for="modeloSelect">Modelo:</label>
-      <select id="modeloSelect" disabled>
-        <option value="">Selecione um modelo</option>
-      </select>
-    </div>
-
-    <div class="mb-3">
-      <label for="anoSelect">Ano:</label>
-      <select id="anoSelect" disabled>
-        <option value="">Selecione o ano</option>
-      </select>
-    </div>
-
-    <button id="btnConfirmar" disabled>Confirmar</button>
+    <form id="formBusca">
+      <div class="mb-3">
+        <label for="marca" class="form-label">Marca</label>
+        <select id="marca" class="form-select" required></select>
+      </div>
+      <div class="mb-3">
+        <label for="modelo" class="form-label">Modelo</label>
+        <select id="modelo" class="form-select" required disabled></select>
+      </div>
+      <div class="mb-3">
+        <label for="ano" class="form-label">Ano</label>
+        <select id="ano" class="form-select" required disabled></select>
+      </div>
+      <button type="submit" class="btn btn-primary btn-enviar" disabled>Próximo</button>
+    </form>
   </div>
 
-  <script>
-    const marcaSelect = document.getElementById('marcaSelect');
-    const modeloSelect = document.getElementById('modeloSelect');
-    const anoSelect = document.getElementById('anoSelect');
-    const btnConfirmar = document.getElementById('btnConfirmar');
-
-    // Buscar marcas na API
-    fetch('https://parallelum.com.br/fipe/api/v1/carros/marcas')
-      .then(res => res.json())
-      .then(data => {
-        data.sort((a,b) => a.nome.localeCompare(b.nome));
-        data.forEach(marca => {
-          const option = document.createElement('option');
-          option.value = marca.codigo;
-          option.text = marca.nome;
-          marcaSelect.appendChild(option);
-        });
-      });
-
-    marcaSelect.addEventListener('change', () => {
-      const codigoMarca = marcaSelect.value;
-      if (!codigoMarca) {
-        modeloSelect.innerHTML = '<option value="">Selecione um modelo</option>';
-        modeloSelect.disabled = true;
-        anoSelect.innerHTML = '<option value="">Selecione o ano</option>';
-        anoSelect.disabled = true;
-        btnConfirmar.disabled = true;
-        return;
-      }
-      modeloSelect.disabled = false;
-      anoSelect.innerHTML = '<option value="">Selecione o ano</option>';
-      anoSelect.disabled = true;
-      btnConfirmar.disabled = true;
-      modeloSelect.innerHTML = '<option value="">Carregando modelos...</option>';
-
-      fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${codigoMarca}/modelos`)
-        .then(res => res.json())
-        .then(data => {
-          modeloSelect.innerHTML = '<option value="">Selecione um modelo</option>';
-          data.modelos.sort((a,b) => a.nome.localeCompare(b.nome));
-          data.modelos.forEach(modelo => {
-            const option = document.createElement('option');
-            option.value = modelo.codigo;
-            option.text = modelo.nome;
-            modeloSelect.appendChild(option);
-          });
-        });
-    });
-
-    modeloSelect.addEventListener('change', () => {
-      const codigoMarca = marcaSelect.value;
-      const codigoModelo = modeloSelect.value;
-      if (!codigoModelo) {
-        anoSelect.innerHTML = '<option value="">Selecione o ano</option>';
-        anoSelect.disabled = true;
-        btnConfirmar.disabled = true;
-        return;
-      }
-      anoSelect.disabled = false;
-      btnConfirmar.disabled = true;
-      anoSelect.innerHTML = '<option value="">Carregando anos...</option>';
-
-      fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${codigoMarca}/modelos/${codigoModelo}/anos`)
-        .then(res => res.json())
-        .then(data => {
-          anoSelect.innerHTML = '<option value="">Selecione o ano</option>';
-          data.sort((a,b) => b.nome.localeCompare(a.nome));
-          data.forEach(ano => {
-            const option = document.createElement('option');
-            option.value = ano.codigo;
-            option.text = ano.nome;
-            anoSelect.appendChild(option);
-          });
-        });
-    });
-
-    anoSelect.addEventListener('change', () => {
-      btnConfirmar.disabled = !anoSelect.value;
-    });
-
-    btnConfirmar.addEventListener('click', () => {
-      const codigoMarca = marcaSelect.value;
-      const codigoModelo = modeloSelect.value;
-      const codigoAno = anoSelect.value;
-
-      const marcaNome = marcaSelect.options[marcaSelect.selectedIndex].text;
-      const modeloNome = modeloSelect.options[modeloSelect.selectedIndex].text;
-      const anoNome = anoSelect.options[anoSelect.selectedIndex].text;
-
-      if (!codigoMarca || !codigoModelo || !codigoAno) {
-        alert('Selecione todos os campos antes de continuar.');
-        return;
-      }
-
-      const veiculoSelecionado = {
-        marcaCodigo: codigoMarca,
-        modeloCodigo: codigoModelo,
-        anoCodigo: codigoAno,
-        marcaNome: marcaNome,
-        modeloNome: modeloNome,
-        anoNome: anoNome
-      };
-
-      localStorage.setItem('veiculoSelecionado', JSON.stringify(veiculoSelecionado));
-      window.location.href = 'checklist.html';
-    });
-  </script>
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
